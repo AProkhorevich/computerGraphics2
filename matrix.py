@@ -1,12 +1,13 @@
 import math
+from tkinter import Y
 
 
 def getMove(dx: float = 0, dy: float = 0):
     return [[1, 0, dx], [0, 1, dy], [0, 0, 1]]
 
 
-def getChangeSize(x: float = 0):
-    return [[x, 0, 0], [0, x, 0], [0, 0, 1]]
+def getChangeSize(x: float = 0, y: float = 0):
+    return [[x, 0, 0], [0, y, 0], [0, 0, 1]]
 
 
 def getReflectionOX():
@@ -78,8 +79,8 @@ def reflectionXY(point):
     return roundUpCoordinates(res)
 
 
-def changeSize(point, origin,  x=1):
-    res = matrixmult(setOrigin(origin), getChangeSize(x))
+def changeSize(point, origin,  x=1, y=1):
+    res = matrixmult(setOrigin(origin), getChangeSize(x, y))
     res = matrixmult(res, unsetOrigin(origin))
     pointAsMatrix = mapToMatrixRows(point)
     res = matrixmult(res, pointAsMatrix)
