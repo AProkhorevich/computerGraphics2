@@ -12,15 +12,7 @@ X = [0, math.sqrt(3), 0, -math.sqrt(3), 0]
 Y = [0, 3, 8, 3, 0]
 Z = [1, 1, 1, 1, 1]
 
-# X = [0.0, -1.73205, -6.9282, -3.4641, 0.0, 0.0, -3.4641, -6.9282, -1.73205, 0.0, 0.0, -1.73205,
-#      0.0, 1.73205, 0.0, 0.0, 1.73205, 6.9282, 3.4641, 0.0, 0.0, 3.4641, 6.9282, 1.73205, 0.0]
-# Y = [0.0, 3.0, 4.0, 0.0, 0.0, 0.0, 0.0, -4.0, -3.0, 0.0, 0.0, -3.0, -
-#      8.0, -3.0, 0.0, 0.0, -3.0, -4.0, -0.0, 0.0, 0.0, -0.0, 4.0, 3.0, 0.0]
-# Z = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-#      1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-
-
-buttons = []
+BUTTONS = []
 
 
 def boardUpdate():
@@ -36,19 +28,15 @@ def drawFigure(event=None) -> void:
     global X, Y, Z
     boardUpdate()
     fCenter = (X[0], Y[0], Z[0])
-    # ax.plot(X, Y, c="blue")
-    # for _ in range(5):
     for i, point in enumerate(zip(X, Y, Z)):
-        # X[i], Y[i], Z[i] = rotateAround(point, fCenter, 60)
         ax.plot(X, Y, c="blue")
 
 
 def calculateFig():
     global X, Y, Z
-    # tX, tY, tZ = [], [], []
-    tX = [0, math.sqrt(3), 0, -math.sqrt(3), 0]
-    tY = [0, 3, 8, 3, 0]
-    tZ = [1, 1, 1, 1, 1]
+    tX = X.copy()
+    tY = Y.copy()
+    tZ = Z.copy()
     fCenter = (X[0], Y[0], Z[0])
     for _ in range(5):
         for i, point in enumerate(zip(X, Y, Z)):
@@ -56,12 +44,8 @@ def calculateFig():
             tX.append(X[i])
             tY.append(Y[i])
             tZ.append(Z[i])
-            print(i)
 
     X, Y, Z = tX, tY, tZ
-    print(X)
-    print(Y)
-    print(Z)
 
 
 def translateFigure(tFunc: callable, tArgs: list = None):
@@ -133,51 +117,31 @@ def setUp(event=None):
     axes = plt.axes([0.2, 0.000001, 0.1, 0.075])
     moveButton = Button(axes, 'Move')
     moveButton.on_clicked(callMove)
-    buttons.append(moveButton)
+    BUTTONS.append(moveButton)
 
     axes = plt.axes([0.35, 0.000001, 0.1, 0.075])
     changeSizeButton = Button(axes, 'Change size')
     changeSizeButton.on_clicked(callChangeSize)
-    buttons.append(changeSizeButton)
+    BUTTONS.append(changeSizeButton)
 
     axes = plt.axes([0.5, 0.000001, 0.1, 0.075])
     resetButton = Button(axes, 'Reset')
     resetButton.on_clicked(resetFigPos)
-    buttons.append(resetButton)
+    BUTTONS.append(resetButton)
 
     axes = plt.axes([0.7, 0.000001, 0.1, 0.075])
     mirrorButton = Button(axes, 'Miror')
     mirrorButton.on_clicked(callReflection)
-    buttons.append(mirrorButton)
+    BUTTONS.append(mirrorButton)
 
     axes = plt.axes([0.9, 0.000001, 0.1, 0.075])
     rotateButton = Button(axes, 'Rotate')
     rotateButton.on_clicked(callRotateAround)
-    buttons.append(rotateButton)
+    BUTTONS.append(rotateButton)
 
     resetFigPos()
 
 
 if __name__ == '__main__':
     setUp()
-
-    # X, Y, Z = translateFigure(X, Y, Z, moveFigure, [10, 5])
-    # drawFigure(X, Y, Z, color="red")
-
-    # translateFigure(moveFigure, [10, 5])
-    # drawFigure()
-
-    # X, Y, Z = translateFigure(X, Y, Z, moveFigure, [5])
-    # X, Y, Z = translateFigure(X, Y, Z, reflectionOX)
-
-    # X, Y, Z = translateFigure(X, Y, Z, reflectionOY)
-    # drawFigure(X, Y, Z, color="green")
-
-    # translateFigure(changeSize, [0.5])
-    # drawFigure()
-
-    # translateFigure(rotate_around, [(0, 0), 15])
-    # translateFigure(changeSize, [2])
-    # drawFigure()
-
     plt.show()
